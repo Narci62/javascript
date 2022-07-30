@@ -1,1 +1,1 @@
-retrouver mes exercic en Javascript
+retrouver mes exercices en Javascript dans ce projet

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Appel Ajax</title>
+  </head>
+  <body id="bod">
+    <script type="text/javascript">
+      function getCours() {
+      /* Appel AJAX vers cryptocompare.com */
+      var ajax = new XMLHttpRequest();
+      console.log("readyState après new : "+ajax.readyState);
+      /* Détection de l'avancement de l'appel */
+      ajax.onreadystatechange=function() {
+      console.log("readyState a changé et vaut : "+ajax.readyState)
+      }
+      /* Détection de la fin de l'appel */
+      ajax.onload = function() {
+      console.log("Appel AJAX terminé");
+      console.log(" status : "+this.status);
+      console.log(" response : "+this.response);
+      if (this.status == 200) { /* Le service a bien répondu */
+      var json=JSON.parse(this.response); // Convertir le retour JSON
+      var eur=formatMontant(json.EUR);
+      var dt=new Date();
+      document.getElementById("cours").innerHTML=eur+" &euro;";
+      document.querySelector("div#horo").innerHTML="Maj "+dt.toLocaleString();
+      }
+      }
+      var url="https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=EUR";
+      ajax.open("GET", url, true);
+      ajax.send();
+      }
+    </script>
+
+  </body>
+</html>
